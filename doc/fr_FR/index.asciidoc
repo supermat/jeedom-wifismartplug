@@ -19,7 +19,7 @@ Pour les HS110 ( prise remontant la puissance)
 Les données sont rafraîchies toutes les minutes et après une action depuis jeedom
 
 image:../images/smartplug_screenshot1.png[width=256]
-image:../images/smartplug_screenshot3.png[width=256]
+image:../images/smartplug_screenshot2.png[width=256]
 
 '''
 === Configuration
