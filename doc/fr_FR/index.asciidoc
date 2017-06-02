@@ -1,5 +1,8 @@
 == Smartplug
 
+== Preambule
+Pour rendre à Cesar ce qui est à Cesar, ce plugin est inspiré du plugin mPower de sarahka63, plugin dont je me suis servi comme modéle.
+
 === Description
 Ce plugin permet de contrôler les prises tplink wifi HS100 et HS110. Le widget permet de voir toutes les infos :
 
