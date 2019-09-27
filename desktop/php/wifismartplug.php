@@ -124,6 +124,7 @@
     <select id="sel_object" class="eqLogicAttr form-control" data-l1key="configuration" data-l2key="model">
     <option value="HS100">{{prise HS100}}</option>
     <option value="HS110">{{prise HS110}}</option>
+    <option value="MAGINONSP1E">{{prise MAGINON SP-1E}}</option>
     </select>
     </div>
     </div>

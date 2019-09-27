@@ -1,24 +1,24 @@
 #!/usr/bin/env python
-# 
+#
 # TP-Link Wi-Fi Smart Plug Protocol Client
 # For use with TP-Link HS-100 or HS-110
-#  
+#
 # by Lubomir Stroetmann
-# Copyright 2016 softScheck GmbH 
-# 
+# Copyright 2016 softScheck GmbH
+#
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-# 
-###
+#
+#
 import socket
 import argparse
 import json
@@ -39,7 +39,7 @@ def validIP(ip):
 date = datetime.datetime.now()
 month = date.month
 year = date.year
-dailyconsumptionCommand = str('{"emeter":{"get_daystat":{"month":') + str(month) + str(',"year":') +str(year) +str("}}}")
+dailyConsumptionCommand = str('{"emeter":{"get_daystat":{"month":') + str(month) + str(',"year":') +str(year) +str("}}}")
 
 # Predefined Smart Plug Commands
 # For a full list of commands, consult tplink_commands.txt
@@ -65,7 +65,7 @@ commands = {'info'                 : '{"system":{"get_sysinfo":{}}}',
             'currentRunTime'       : '{"system":{"get_sysinfo":{}}}',
             'currentPower'         : '{"emeter":{"get_realtime":{}}}',
             'voltage'              : '{"emeter":{"get_realtime":{}}}',
-            'dailyConsumption'     : dailyconsumptionCommand,
+            'dailyConsumption'     : dailyConsumptionCommand,
             'gettime'              : '{"emeter":{"get_daystat":{"month":5,"year":2017}}}',
             'currentRunTimeHour'   : '{"system":{"get_sysinfo":{}}}',
             'resetcounter'         : '{"emeter":{"erase_emeter_stat":null}}'
@@ -77,29 +77,29 @@ commands = {'info'                 : '{"system":{"get_sysinfo":{}}}',
 def encrypt(string):
 	key = 171
 	result = "\0\0\0\0"
-	for i in string: 
+	for i in string:
 		a = key ^ ord(i)
 		key = a
 		result += chr(a)
 	return result
 
 def decrypt(string):
-	key = 171 
+	key = 171
 	result = ""
-	for i in string: 
+	for i in string:
 		a = key ^ ord(i)
-		key = ord(i) 
+		key = ord(i)
 		result += chr(a)
 	return result
-	
+
 
 #01/04/2017 parse relay state
-def parsecurrentRunTime(string):
+def parseCurrentRunTime(string):
 	result = ""
 	jsonObj = json.loads(string)
 	print json.loads(string)['system']['get_sysinfo']['on_time']
 	return jsonObj['system']['get_sysinfo']['on_time']
-	
+
 def decoupe(seconde):
     day=seconde / 86400
     seconde %=86400
@@ -131,7 +131,7 @@ def dailyConsumption(string):
 parser = argparse.ArgumentParser(description="TP-Link Wi-Fi Smart Plug Client v" + str(version))
 parser.add_argument("-t", "--target", metavar="<ip>", required=True, help="Target IP Address", type=validIP)
 group = parser.add_mutually_exclusive_group(required=True)
-group.add_argument("-c", "--command", metavar="<command>", help="Preset command to send. Choices are: "+", ".join(commands), choices=commands) 
+group.add_argument("-c", "--command", metavar="<command>", help="Preset command to send. Choices are: "+", ".join(commands), choices=commands)
 group.add_argument("-j", "--json", metavar="<JSON string>", help="Full JSON string of command to send")
 args = parser.parse_args()
 
@@ -145,7 +145,7 @@ else:
 
 resultat = ''
 
-# Send command and receive reply 
+# Send command and receive reply
 try:
 	sock_tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock_tcp.connect((ip, port))
@@ -187,8 +187,6 @@ try:
 
 #01/04/2017 add parse result info for get relay stat directly 0 off 1 on
 
-	
+
 except socket.error:
 	quit("Cound not connect to host " + ip + ":" + str(port))
-
-
